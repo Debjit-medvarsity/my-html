@@ -1,17 +1,27 @@
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title></title>
-<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
-<h2 style="text-align: center; color: #333;">Choose Your Adventure</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Choose Your Adventure</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+        <h2 style="text-align: center; color: #333;">Choose Your Adventure</h2>
 
-<div id="game-content">
-<div id="story-text" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 5px;">
-<p><strong>You wake up in a dark forest. You see two paths: left and right. Which way do you go?</strong></p>
-</div>
+        <div id="game-content">
+            <div id="story-text" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 5px;">
+                <p><strong>You wake up in a dark forest. You see two paths: left and right. Which way do you go?</strong></p>
+            </div>
 
-<div id="choices" style="margin-bottom: 15px;"><button onclick="showStep('left')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go left</button><button onclick="showStep('right')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go right</button></div>
-</div>
-</div>
-<script>
+            <div id="choices" style="margin-bottom: 15px;">
+                <button onclick="showStep('left')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go left</button>
+                <button onclick="showStep('right')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go right</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
         var gameStory = {
             start: {
                 text: "You wake up in a dark forest. You see two paths: left and right. Which way do you go?",
@@ -65,14 +75,14 @@
         function showStep(stepName) {
             var step = gameStory[stepName];
             if (!step) return;
-            
+
             // Update story text
             document.getElementById('story-text').innerHTML = '<p><strong>' + step.text + '</strong></p>';
-            
+
             // Update choices
             var choicesDiv = document.getElementById('choices');
             choicesDiv.innerHTML = '';
-            
+
             for (var i = 0; i < step.choices.length; i++) {
                 var choice = step.choices[i];
                 var button = document.createElement('button');
@@ -85,3 +95,5 @@
             }
         }
     </script>
+</body>
+</html>

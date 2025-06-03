@@ -1,87 +1,94 @@
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title></title>
-<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
-<h2 style="text-align: center; color: #333;">Choose Your Adventure</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Choose Your Adventure</title>
+</head>
+<body>
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="text-align: center; color: #333;">Choose Your Adventure</h2>
+    <div id="game-content">
+      <div id="story-text" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 5px;">
+        <p><strong>You wake up in a dark forest. You see two paths: left and right. Which way do you go?</strong></p>
+      </div>
+      <div id="choices" style="margin-bottom: 15px;">
+        <button onclick="showStep('left')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go left</button>
+        <button onclick="showStep('right')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go right</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    var gameStory = {
+      start: {
+        text: "You wake up in a dark forest. You see two paths: left and right. Which way do you go?",
+        choices: [
+          {text: "Go left", next: "left"},
+          {text: "Go right", next: "right"}
+        ]
+      },
+      left: {
+        text: "You come across a river. Do you swim across or walk along the riverbank?",
+        choices: [
+          {text: "Swim across", next: "swim"},
+          {text: "Walk along the riverbank", next: "walk"},
+          {text: "Go back", next: "start"}
+        ]
+      },
+      right: {
+        text: "You find a cabin. Do you enter or keep walking?",
+        choices: [
+          {text: "Enter the cabin", next: "enter"},
+          {text: "Keep walking", next: "keepwalking"},
+          {text: "Go back", next: "start"}
+        ]
+      },
+      swim: {
+        text: "The current is too strong! You get swept away. Game over.",
+        choices: [
+          {text: "Restart", next: "start"}
+        ]
+      },
+      walk: {
+        text: "You find a bridge and safely cross the river. You win!",
+        choices: [
+          {text: "Play again", next: "start"}
+        ]
+      },
+      enter: {
+        text: "The cabin is cozy. You rest and escape safely. You win!",
+        choices: [
+          {text: "Play again", next: "start"}
+        ]
+      },
+      keepwalking: {
+        text: "You get lost in the forest. Game over.",
+        choices: [
+          {text: "Restart", next: "start"}
+        ]
+      }
+    };
 
-<div id="game-content">
-<div id="story-text" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 5px;">
-<p><strong>You wake up in a dark forest. You see two paths: left and right. Which way do you go?</strong></p>
-</div>
+    function showStep(stepName) {
+      var step = gameStory[stepName];
+      if (!step) return;
 
-<div id="choices" style="margin-bottom: 15px;"><button onclick="showStep('left')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go left</button><button onclick="showStep('right')" style="display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Go right</button></div>
-</div>
-</div>
-<script>
-        var gameStory = {
-            start: {
-                text: "You wake up in a dark forest. You see two paths: left and right. Which way do you go?",
-                choices: [
-                    {text: "Go left", next: "left"},
-                    {text: "Go right", next: "right"}
-                ]
-            },
-            left: {
-                text: "You come across a river. Do you swim across or walk along the riverbank?",
-                choices: [
-                    {text: "Swim across", next: "swim"},
-                    {text: "Walk along the riverbank", next: "walk"},
-                    {text: "Go back", next: "start"}
-                ]
-            },
-            right: {
-                text: "You find a cabin. Do you enter or keep walking?",
-                choices: [
-                    {text: "Enter the cabin", next: "enter"},
-                    {text: "Keep walking", next: "keepwalking"},
-                    {text: "Go back", next: "start"}
-                ]
-            },
-            swim: {
-                text: "The current is too strong! You get swept away. Game over.",
-                choices: [
-                    {text: "Restart", next: "start"}
-                ]
-            },
-            walk: {
-                text: "You find a bridge and safely cross the river. You win!",
-                choices: [
-                    {text: "Play again", next: "start"}
-                ]
-            },
-            enter: {
-                text: "The cabin is cozy. You rest and escape safely. You win!",
-                choices: [
-                    {text: "Play again", next: "start"}
-                ]
-            },
-            keepwalking: {
-                text: "You get lost in the forest. Game over.",
-                choices: [
-                    {text: "Restart", next: "start"}
-                ]
-            }
-        };
+      document.getElementById('story-text').innerHTML = '<p><strong>' + step.text + '</strong></p>';
 
-        function showStep(stepName) {
-            var step = gameStory[stepName];
-            if (!step) return;
-            
-            // Update story text
-            document.getElementById('story-text').innerHTML = '<p><strong>' + step.text + '</strong></p>';
-            
-            // Update choices
-            var choicesDiv = document.getElementById('choices');
-            choicesDiv.innerHTML = '';
-            
-            for (var i = 0; i < step.choices.length; i++) {
-                var choice = step.choices[i];
-                var button = document.createElement('button');
-                button.innerHTML = choice.text;
-                button.onclick = (function(nextStep) {
-                    return function() { showStep(nextStep); };
-                })(choice.next);
-                button.style.cssText = 'display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;';
-                choicesDiv.appendChild(button);
-            }
-        }
-    </script>
+      var choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+
+      for (var i = 0; i < step.choices.length; i++) {
+        var choice = step.choices[i];
+        var button = document.createElement('button');
+        button.innerHTML = choice.text;
+        button.onclick = (function(nextStep) {
+          return function() { showStep(nextStep); };
+        })(choice.next);
+        button.style.cssText = 'display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;';
+        choicesDiv.appendChild(button);
+      }
+    }
+  </script>
+</body>
+</html>
